@@ -1,0 +1,2 @@
+ALTER TABLE "a11y"."page_state" ADD COLUMN "screenshot_deleted_at" timestamp with time zone;--> statement-breakpoint
+ALTER TABLE "a11y"."project" ADD COLUMN "ai_enabled" boolean DEFAULT false NOT NULL;

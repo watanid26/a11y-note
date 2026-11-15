@@ -1,0 +1,14 @@
+# 이미지에 비밀값·개인 데이터·개발 산출물이 들어가지 않게 (P1-8)
+.env
+.env.*
+!.env.example
+.local-data
+.git
+.next
+.next-prod
+node_modules
+deploy/worker.env
+deploy/*.log
+docs/*.zip
+*.tsbuildinfo
+fixtures/site/secret.html

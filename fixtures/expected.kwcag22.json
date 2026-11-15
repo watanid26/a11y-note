@@ -1,0 +1,454 @@
+{
+  "casesVersion": "cases-r2",
+  "engine": "a11ynote-core 0.2.0 / axe-core 4.14.0",
+  "packs": {
+    "kwcag22": "KWCAG 2.2 (2022) · 점검노트 연결표 r2",
+    "jis2016": "JIS X 8341-3:2016 · 点検ノート対応表 r2"
+  },
+  "note": "bad: 해당 항목이 기대 결과여야 함 / good: 해당 항목에 부적합이 없어야 함. 실무자 검토 전 자체 정답.",
+  "cases": [
+    {
+      "id": "img-alt",
+      "kwcag": {
+        "code": "5.1.1",
+        "title": "적절한 대체 텍스트 제공"
+      },
+      "jis": {
+        "code": "1.1.1",
+        "title": "非テキストコンテンツ"
+      },
+      "wcag": [
+        "1.1.1"
+      ],
+      "what": "이미지 대체 텍스트 없음",
+      "basis": "KWCAG 5.1.1 / WCAG 1.1.1: 의미 있는 이미지는 대체 텍스트 제공",
+      "condition": "alt 속성이 없는 img",
+      "bad": {
+        "expect": "부적합",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><img src=\"/logo.png\" width=\"120\" height=\"40\"></main></body></html>"
+      },
+      "good": {
+        "expect": "부적합 아님",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><img src=\"/logo.png\" width=\"120\" height=\"40\" alt=\"테스트 시청 로고\"></main></body></html>"
+      }
+    },
+    {
+      "id": "table-headers",
+      "kwcag": {
+        "code": "5.3.1",
+        "title": "표의 구성"
+      },
+      "jis": {
+        "code": "1.3.1",
+        "title": "情報及び関係性"
+      },
+      "wcag": [],
+      "what": "표의 headers 가 없는 제목 셀을 가리킴",
+      "basis": "KWCAG 5.3.1 / WCAG 1.3.1: 표의 제목 셀과 내용 셀 연결",
+      "condition": "td 의 headers 가 존재하지 않는 id 를 가리킴",
+      "bad": {
+        "expect": "부적합",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><table><caption>명단</caption><tr><th id=\"h1\">이름</th></tr><tr><td headers=\"nothere\">홍길동</td></tr></table></main></body></html>"
+      },
+      "good": {
+        "expect": "부적합 아님",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><table><caption>명단</caption><tr><th id=\"h1\" scope=\"col\">이름</th></tr><tr><td headers=\"h1\">홍길동</td></tr></table></main></body></html>"
+      }
+    },
+    {
+      "id": "table-caption",
+      "kwcag": {
+        "code": "5.3.1",
+        "title": "표의 구성"
+      },
+      "jis": null,
+      "wcag": [],
+      "what": "데이터 표 캡션 없음 (한국 실무 기준, 사람 확인)",
+      "basis": "KWCAG 5.3.1 (국내 진단 실무): 데이터 표 제목(caption) 제공 — 원문 미명시, 사람 확인 필요",
+      "condition": "th 가 있는 데이터 표에 caption 없음",
+      "bad": {
+        "expect": "부적합 또는 검토 필요",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><table><tr><th scope=\"col\">이름</th></tr><tr><td>홍길동</td></tr></table></main></body></html>"
+      },
+      "good": {
+        "expect": "부적합 아님",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><table><caption>명단</caption><tr><th scope=\"col\">이름</th></tr><tr><td>홍길동</td></tr></table></main></body></html>"
+      }
+    },
+    {
+      "id": "contrast",
+      "kwcag": {
+        "code": "5.4.3",
+        "title": "텍스트 콘텐츠의 명도 대비"
+      },
+      "jis": {
+        "code": "1.4.3",
+        "title": "コントラスト（最低限レベル）"
+      },
+      "wcag": [
+        "1.4.3"
+      ],
+      "what": "글자 명도 대비 부족",
+      "basis": "KWCAG 5.4.3 / WCAG 1.4.3: 텍스트 명도 대비 4.5:1 이상",
+      "condition": "#bbb 글자 / #fff 배경 (약 1.9:1)",
+      "bad": {
+        "expect": "부적합",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><p style=\"color:#bbbbbb;background:#ffffff\">공지사항 본문입니다.</p></main></body></html>"
+      },
+      "good": {
+        "expect": "부적합 아님",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><p style=\"color:#222222;background:#ffffff\">공지사항 본문입니다.</p></main></body></html>"
+      }
+    },
+    {
+      "id": "click-only",
+      "kwcag": {
+        "code": "6.1.1",
+        "title": "키보드 사용 보장"
+      },
+      "jis": {
+        "code": "2.1.1",
+        "title": "キーボード"
+      },
+      "wcag": [
+        "2.1.1",
+        "2.1.2"
+      ],
+      "what": "마우스로만 실행되는 요소",
+      "basis": "KWCAG 6.1.1 / WCAG 2.1.1: 키보드로 모든 기능 사용",
+      "condition": "onclick 만 있고 초점을 받을 수 없는 div",
+      "bad": {
+        "expect": "부적합",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><div onclick=\"location.href='/'\" style=\"cursor:pointer;padding:12px\">홈으로 이동</div></main></body></html>"
+      },
+      "good": {
+        "expect": "부적합 아님",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><button type=\"button\" onclick=\"location.href='/'\" style=\"padding:12px\">홈으로 이동</button></main></body></html>"
+      }
+    },
+    {
+      "id": "keyboard-trap",
+      "kwcag": {
+        "code": "6.1.1",
+        "title": "키보드 사용 보장"
+      },
+      "jis": {
+        "code": "2.1.2",
+        "title": "キーボードトラップなし"
+      },
+      "wcag": [
+        "2.1.1",
+        "2.1.2"
+      ],
+      "what": "Tab 키로 빠져나갈 수 없는 요소",
+      "basis": "KWCAG 6.1.1 / WCAG 2.1.2: 키보드 함정 없음",
+      "condition": "Tab 키 기본 동작을 막아 초점이 빠져나가지 못함",
+      "bad": {
+        "expect": "부적합",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><div id=\"trap\" tabindex=\"0\" style=\"padding:12px;outline:2px solid #000\" onkeydown=\"if(event.key==='Tab'){event.preventDefault()}\">날짜 선택</div><a href=\"/after\">다음 링크</a></main></body></html>"
+      },
+      "good": {
+        "expect": "부적합 아님",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><div id=\"trap\" tabindex=\"0\" style=\"padding:12px\">날짜 선택</div><a href=\"/after\">다음 링크</a></main></body></html>"
+      }
+    },
+    {
+      "id": "focus-indicator",
+      "kwcag": {
+        "code": "6.1.2",
+        "title": "초점 이동과 표시"
+      },
+      "jis": {
+        "code": "2.4.7",
+        "title": "フォーカスの可視化"
+      },
+      "wcag": [
+        "2.4.3",
+        "2.4.7"
+      ],
+      "what": "초점 표시 없앰",
+      "basis": "KWCAG 6.1.2 / WCAG 2.4.7: 초점이 시각적으로 구별",
+      "condition": "a:focus 의 outline·box-shadow 제거",
+      "bad": {
+        "expect": "부적합",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title><style>a:focus,a:focus-visible,button:focus{outline:none!important;box-shadow:none!important}</style></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><p><a href=\"/a\">공지 1</a></p><p><a href=\"/b\">공지 2</a></p></main></body></html>"
+      },
+      "good": {
+        "expect": "부적합 아님",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title><style>a:focus{outline:3px solid #1d4ed8}</style></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><p><a href=\"/a\">공지 1</a></p><p><a href=\"/b\">공지 2</a></p></main></body></html>"
+      }
+    },
+    {
+      "id": "target-size",
+      "kwcag": {
+        "code": "6.1.3",
+        "title": "조작 가능"
+      },
+      "jis": null,
+      "wcag": [
+        "2.5.8"
+      ],
+      "what": "누를 수 있는 컨트롤이 너무 작음 (권고 기준, 사람 확인)",
+      "basis": "KWCAG 6.1.3 / WCAG 2.5.8: 조작 대상 크기 (국내 대각 6mm 는 원문상 권고)",
+      "condition": "12×12px 버튼",
+      "bad": {
+        "expect": "부적합 또는 검토 필요",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><p>설정 <button type=\"button\" aria-label=\"닫기\" style=\"width:12px;height:12px;padding:0;border:1px solid #000;font-size:8px\">x</button></p></main></body></html>"
+      },
+      "good": {
+        "expect": "부적합 아님",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><p>설정 <button type=\"button\" aria-label=\"닫기\" style=\"width:44px;height:44px\">x</button></p></main></body></html>"
+      }
+    },
+    {
+      "id": "meta-refresh",
+      "kwcag": {
+        "code": "6.2.1",
+        "title": "응답시간 조절"
+      },
+      "jis": {
+        "code": "2.2.1",
+        "title": "タイミング調整可能"
+      },
+      "wcag": [
+        "2.2.1"
+      ],
+      "what": "시간 제한 자동 새로고침",
+      "basis": "KWCAG 6.2.1 / WCAG 2.2.1: 시간 제한 조절",
+      "condition": "meta refresh 300초 자동 이동",
+      "bad": {
+        "expect": "부적합",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title><meta http-equiv=\"refresh\" content=\"300;url=/\"></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><p>본문</p></main></body></html>"
+      },
+      "good": {
+        "expect": "부적합 아님",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><p>본문</p></main></body></html>"
+      }
+    },
+    {
+      "id": "skip-link",
+      "kwcag": {
+        "code": "6.4.1",
+        "title": "반복 영역 건너뛰기"
+      },
+      "jis": {
+        "code": "2.4.1",
+        "title": "ブロックスキップ"
+      },
+      "wcag": [
+        "2.4.1"
+      ],
+      "what": "본문 바로가기 없음",
+      "basis": "KWCAG 6.4.1 / WCAG 2.4.1: 반복 영역 건너뛰기",
+      "condition": "첫 초점 요소가 본문 바로가기가 아님",
+      "bad": {
+        "expect": "부적합",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><p>본문</p></main></body></html>"
+      },
+      "good": {
+        "expect": "부적합 아님",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><p>본문</p></main></body></html>"
+      }
+    },
+    {
+      "id": "page-title",
+      "kwcag": {
+        "code": "6.4.2",
+        "title": "제목 제공"
+      },
+      "jis": {
+        "code": "2.4.2",
+        "title": "ページタイトル"
+      },
+      "wcag": [
+        "2.4.2",
+        "2.4.6"
+      ],
+      "what": "페이지 제목 없음",
+      "basis": "KWCAG 6.4.2 / WCAG 2.4.2: 페이지 제목 제공",
+      "condition": "title 이 빈 문자열",
+      "bad": {
+        "expect": "부적합",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title></title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>제목</h1><p>본문</p></main></body></html>"
+      },
+      "good": {
+        "expect": "부적합 아님",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>공지사항 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>공지사항 | 테스트 시청</h1><p>본문</p></main></body></html>"
+      }
+    },
+    {
+      "id": "link-name",
+      "kwcag": {
+        "code": "6.4.3",
+        "title": "적절한 링크 텍스트"
+      },
+      "jis": {
+        "code": "2.4.4",
+        "title": "リンクの目的（コンテキスト内）"
+      },
+      "wcag": [
+        "2.4.4"
+      ],
+      "what": "이름 없는 링크 (빈 alt 이미지 링크)",
+      "basis": "KWCAG 6.4.3 / WCAG 2.4.4: 링크 텍스트",
+      "condition": "alt=\"\" 이미지만 있는 링크",
+      "bad": {
+        "expect": "부적합",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><a href=\"/notice\"><img src=\"/logo.png\" alt=\"\" width=\"40\" height=\"40\"></a></main></body></html>"
+      },
+      "good": {
+        "expect": "부적합 아님",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><a href=\"/notice\"><img src=\"/logo.png\" alt=\"공지사항\" width=\"40\" height=\"40\"></a></main></body></html>"
+      }
+    },
+    {
+      "id": "lang",
+      "kwcag": {
+        "code": "7.1.1",
+        "title": "기본 언어 표시"
+      },
+      "jis": {
+        "code": "3.1.1",
+        "title": "ページの言語"
+      },
+      "wcag": [
+        "3.1.1"
+      ],
+      "what": "기본 언어 지정 없음",
+      "basis": "KWCAG 7.1.1 / WCAG 3.1.1: 기본 언어 표시",
+      "condition": "html 에 lang 없음",
+      "bad": {
+        "expect": "부적합",
+        "html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><p>본문</p></main></body></html>"
+      },
+      "good": {
+        "expect": "부적합 아님",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><p>본문</p></main></body></html>"
+      }
+    },
+    {
+      "id": "new-window",
+      "kwcag": {
+        "code": "7.2.1",
+        "title": "사용자 요구에 따른 실행"
+      },
+      "jis": null,
+      "wcag": [
+        "3.2.1",
+        "3.2.2",
+        "3.2.5"
+      ],
+      "what": "새 창 안내 없음 (한국 실무, 사람 확인)",
+      "basis": "KWCAG 7.2.1 (국내 진단 실무): 새 창 열림 안내 — 안내 문구 누락만으로는 부적합 아님, 사람 확인 필요",
+      "condition": "target=_blank 링크에 새 창 안내 없음 (자동으로 열리는 창·맥락 변화 없음)",
+      "bad": {
+        "expect": "부적합 또는 검토 필요",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><a href=\"https://example.com/\" target=\"_blank\">관련 기관</a></main></body></html>"
+      },
+      "good": {
+        "expect": "부적합 아님",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><a href=\"https://example.com/\" target=\"_blank\" title=\"새 창\">관련 기관</a></main></body></html>"
+      }
+    },
+    {
+      "id": "label",
+      "kwcag": {
+        "code": "7.3.2",
+        "title": "레이블 제공"
+      },
+      "jis": {
+        "code": "3.3.2",
+        "title": "ラベル又は説明"
+      },
+      "wcag": [
+        "3.3.2"
+      ],
+      "what": "입력칸 레이블 없음",
+      "basis": "KWCAG 7.3.2 / WCAG 1.3.1·4.1.2: 입력 서식 레이블",
+      "condition": "label·aria-label 없는 text 입력칸",
+      "bad": {
+        "expect": "부적합",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><form><input type=\"text\" name=\"q\"><button>검색</button></form></main></body></html>"
+      },
+      "good": {
+        "expect": "부적합 아님",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><form><label for=\"q\">검색어</label><input id=\"q\" type=\"text\" name=\"q\"><button>검색</button></form></main></body></html>"
+      }
+    },
+    {
+      "id": "duplicate-id",
+      "kwcag": {
+        "code": "8.1.1",
+        "title": "마크업 오류 방지"
+      },
+      "jis": {
+        "code": "4.1.1",
+        "title": "構文解析"
+      },
+      "wcag": [
+        "4.1.1"
+      ],
+      "what": "중복 id",
+      "basis": "KWCAG 8.1.1 / JIS 4.1.1(WCAG 2.0 4.1.1): 마크업 오류 방지",
+      "condition": "같은 id 두 번 사용",
+      "bad": {
+        "expect": "부적합",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><p id=\"dup\">첫째</p><p id=\"dup\">둘째</p></main></body></html>"
+      },
+      "good": {
+        "expect": "부적합 아님",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><p id=\"a1\">첫째</p><p id=\"a2\">둘째</p></main></body></html>"
+      }
+    },
+    {
+      "id": "button-name",
+      "kwcag": {
+        "code": "8.2.1",
+        "title": "웹 애플리케이션 접근성 준수"
+      },
+      "jis": {
+        "code": "4.1.2",
+        "title": "名前（name）、役割（role）及び値（value）"
+      },
+      "wcag": [
+        "4.1.2"
+      ],
+      "what": "이름 없는 버튼",
+      "basis": "KWCAG 8.2.1 / WCAG 4.1.2: 이름·역할",
+      "condition": "내용·레이블 없는 button",
+      "bad": {
+        "expect": "부적합",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><button type=\"button\" style=\"width:44px;height:44px\"></button></main></body></html>"
+      },
+      "good": {
+        "expect": "부적합 아님",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><button type=\"button\" style=\"width:44px;height:44px\">확인</button></main></body></html>"
+      }
+    },
+    {
+      "id": "autoplay",
+      "kwcag": {
+        "code": "5.4.2",
+        "title": "자동 재생 금지"
+      },
+      "jis": {
+        "code": "1.4.2",
+        "title": "音声の制御"
+      },
+      "wcag": [
+        "1.4.2"
+      ],
+      "what": "소리 있는 미디어 자동 재생",
+      "basis": "KWCAG 5.4.2 / WCAG 1.4.2: 자동 재생 금지",
+      "condition": "muted 없는 autoplay video",
+      "bad": {
+        "expect": "부적합 또는 검토 필요",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><video src=\"/clip.mp4\" autoplay width=\"320\" height=\"180\"></video></main></body></html>"
+      },
+      "good": {
+        "expect": "부적합 아님",
+        "html": "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>테스트 화면 | 테스트 시청</title></head><body><a href=\"#main\">본문 바로가기</a><header><nav aria-label=\"주 메뉴\"><a href=\"/\">홈</a></nav></header><main id=\"main\"><h1>테스트 화면 | 테스트 시청</h1><video src=\"/clip.mp4\" controls width=\"320\" height=\"180\"></video></main></body></html>"
+      }
+    }
+  ]
+}

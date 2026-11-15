@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "접근성 점검노트",
+  "version": "0.3.2",
+  "description": "주소만 넣으면 내 크롬이 사이트를 돌며 접근성을 자동 검사합니다. 로그인 화면·흐름 녹화도 지원합니다.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "sidePanel",
+    "debugger",
+    "alarms"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "action": {
+    "default_title": "접근성 점검노트 열기"
+  },
+  "icons": {
+    "128": "icon128.png"
+  },
+  "optional_permissions": [
+    "downloads"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://localhost:3200/*"
+      ],
+      "js": [
+        "bridge.js"
+      ],
+      "run_at": "document_start"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>역방향 함정 | 테스트 시청</title></head>
+<body>
+<a href="/">처음</a>
+<input id="q" aria-label="검색어">
+<a href="/help.html">도움말</a>
+<a href="/contact.html">문의</a>
+<script>
+// Shift+Tab 만 막는 잘못된 구현 (역방향 키보드 함정)
+document.getElementById("q").addEventListener("keydown", (e) => { if (e.key === "Tab" && e.shiftKey) e.preventDefault(); });
+</script>
+</body></html>

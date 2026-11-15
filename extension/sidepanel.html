@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>접근성 점검노트</title>
+<link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+<header>
+  <h1>접근성 점검노트</h1>
+  <p id="projectLine" class="muted">웹 앱에서 검사할 사이트를 시작해 주세요.</p>
+</header>
+
+<section id="appBox" class="primary-box">
+  <h2>웹 앱에서 검사 시작</h2>
+  <p id="appStatus" class="muted small">로그인한 웹 앱가 이 확장에 검사 작업을 전달합니다. 연결 키를 직접 입력할 필요가 없습니다.</p>
+  <button id="openApp" type="button">웹 앱 열기</button>
+</section>
+
+<details id="settingsBox">
+  <summary>고급 연결 설정</summary>
+  <p class="muted small">일반 사용자는 웹 앱 로그인으로 연결합니다. 자체 서버를 쓰거나 인터넷 없이 결과를 모을 때만 아래 설정을 사용하세요.</p>
+  <form id="settingsForm">
+    <label for="server">자체 서버 주소</label>
+    <input id="server" type="url" placeholder="https://a11ynote.example.com">
+    <label for="token">프로젝트 연결 키</label>
+    <input id="token" type="password" placeholder="an_…" autocomplete="off">
+    <label class="check"><input id="offline" type="checkbox"> 인터넷이 안 되는 PC (결과를 파일로 모아 저장)</label>
+    <label class="check"><input id="review" type="checkbox" checked> 올리기 전에 캡처 확인 (개인정보가 찍혔는지 보고 올리거나 버림)</label>
+    <label class="check"><input id="keyboard" type="checkbox"> Tab 키 검사 포함 (켜면 "디버거" 권한을 묻습니다. 검사 중 크롬 위쪽에 "디버깅 중" 안내가 잠시 뜹니다)</label>
+    <button type="submit">저장하고 연결</button>
+  </form>
+</details>
+
+<section id="recordingBox" hidden aria-live="polite">
+  <h2>녹화 중: <span id="recName"></span></h2>
+  <p><b id="recStep">0</b>개 화면을 검사했습니다. 안내대로 진행하면 화면이 바뀔 때마다 자동으로 검사합니다.</p>
+  <p id="recGuide" class="guide"></p>
+  <p id="recStop" class="stop"></p>
+  <div class="row">
+    <button id="recCheck" type="button" class="secondary">지금 화면도 검사</button>
+    <button id="recDone" type="button">녹화 끝</button>
+    <button id="recCancel" type="button" class="ghost">취소</button>
+  </div>
+</section>
+
+<section id="pendingBox" hidden aria-live="polite">
+  <h2>올리기 전 확인 (<span id="pendingCount">0</span>)</h2>
+  <p class="muted small">캡처에 이름·연락처 같은 개인정보가 보이면 "버리기"를 누르세요. 버린 화면은 서버로 보내지 않습니다.</p>
+  <ul id="pendingList"></ul>
+  <div class="row">
+    <button id="pendingAll" type="button">모두 올리기</button>
+    <button id="pendingNone" type="button" class="ghost">모두 버리기</button>
+  </div>
+</section>
+
+<details id="advancedBox">
+  <summary>수동 검사·권한·오프라인 저장</summary>
+  <p class="muted small">일반 검사는 웹 앱에서 시작합니다. 아래 기능은 로그인 후 화면을 직접 검사하거나 인터넷이 막힌 PC에서 결과를 모을 때만 사용하세요.</p>
+
+  <section id="accessBox">
+  <h2>사이트 권한</h2>
+  <p class="muted small">현재 화면을 수동 검사할 때만 필요합니다. 웹 앱이 자동으로 여는 검사 화면은 검사 작업에 포함된 주소만 사용합니다.</p>
+  <div class="row">
+    <button id="allowCurrent" type="button" class="secondary">현재 사이트 허용</button>
+    <button id="allowCapture" type="button" class="secondary">화면 캡처 허용</button>
+  </div>
+  <p class="muted small">캡처 권한을 허용하지 않으면 결과 데이터만 보내고 증거 이미지는 생략합니다. 권한은 Chrome 설정에서 언제든 취소할 수 있습니다.</p>
+  <ul id="origins" class="small"></ul>
+  </section>
+
+  <section>
+    <button id="scanBtn" type="button" disabled>현재 화면 수동 검사</button>
+    <p id="scanHint" class="muted small">공개 화면·로그인 후 화면을 직접 띄워 둔 상태에서 한 화면만 검사합니다.</p>
+  </section>
+
+<section id="flowBox" hidden>
+  <h2>직접 진행할 흐름</h2>
+  <p id="flowEmpty" class="muted small">서버에서 자동 검사를 한 번 돌리면 할 일이 여기에 나옵니다.</p>
+  <ul id="flows"></ul>
+</section>
+
+<section id="offlineBox" hidden>
+  <h2>저장된 결과</h2>
+  <p><b id="offlineCount">0</b>개 화면을 보관 중입니다. 인터넷이 되는 PC에서 프로젝트 화면의 "결과 파일 올리기"로 올려 주세요.</p>
+  <div class="row">
+    <button id="exportBtn" type="button">결과 파일 저장</button>
+    <button id="clearBtn" type="button" class="ghost">보관 비우기</button>
+  </div>
+</section>
+</details>
+
+<details>
+  <summary>진행 기록</summary>
+  <div class="row between"><h2>진행 기록</h2><a id="resultLink" href="#" target="_blank" hidden>결과 보기</a></div>
+  <ul id="log" aria-live="polite"></ul>
+</details>
+<script src="sidepanel.js" type="module"></script>
+</body>
+</html>

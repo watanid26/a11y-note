@@ -1,0 +1,1 @@
+ALTER TABLE "a11y"."scan" ADD COLUMN "scope_mode" text;

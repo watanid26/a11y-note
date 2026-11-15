@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><title>자바스크립트로 그리는 사이트</title></head>
+<body><div id="app">불러오는 중…</div>
+<script>
+// 링크를 자바스크립트로만 만든다 → 서버(HTML만 받는 수집기)는 링크를 못 찾고, 확장(실제 크롬)은 찾는다
+setTimeout(() => {
+  document.getElementById("app").innerHTML = '<h1>SPA 홈</h1><nav><a href="/help.html">도움말</a> <a href="/contact.html">문의</a> <a href="/search.html">검색</a> <a href="/logout">로그아웃</a></nav><img src="x.png">';
+}, 300);
+</script></body></html>

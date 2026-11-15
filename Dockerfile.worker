@@ -1,0 +1,17 @@
+# 검사 워커 컨테이너 (Playwright 공식 이미지에 크로미움 포함). 1개만 돌리면 된다.
+# 실행은 deploy/run-worker.sh 참고 (비루트·자원 한도·네트워크 격리).
+FROM mcr.microsoft.com/playwright:v1.56.0-noble
+WORKDIR /app
+# Node 22 LTS 만 지원 — 기반 이미지의 Node 가 다르면 빌드를 멈춘다
+RUN node -e "process.exit(+process.versions.node.split('.')[0]===22?0:1)" || (echo "Node 22 가 필요합니다 (지금: $(node -v))" && exit 1)
+COPY package*.json .npmrc ./
+COPY scripts/check-node.cjs scripts/check-node.cjs
+RUN npm ci --omit=dev --ignore-scripts && npm i tsx esbuild
+COPY . .
+RUN npx tsx scripts/build-core.ts
+# 비루트 사용자로 실행 (P0-2)
+RUN useradd -r -u 10001 -m -s /usr/sbin/nologin a11yworker && chown -R a11yworker /app
+USER 10001
+ENV NODE_ENV=production
+ENV CHROMIUM_PATH=/ms-playwright/chromium-1194/chrome-linux/chrome
+CMD ["npx", "tsx", "worker/main.ts"]
